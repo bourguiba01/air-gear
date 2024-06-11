@@ -1,0 +1,90 @@
+name: flutter_app
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  flutter_svg: ^2.0.10+1
+
+flutter:
+  uses-material-design: true
+  assets:
+  - assets/vectors/VECTOR-15_x4.svg
+  - assets/vectors/VECTOR-13_x4.svg
+  - assets/vectors/VECTOR-29_x4.svg
+  - assets/vectors/CONTAINER-2_x4.svg
+  - assets/vectors/SCANNING-CIRCLE_x4.svg
+  - assets/vectors/VECTOR-8_x4.svg
+  - assets/vectors/VECTOR-62_x4.svg
+  - assets/vectors/VECTOR-57_x4.svg
+  - assets/vectors/GROUP-2_x4.svg
+  - assets/vectors/VECTOR-3_x4.svg
+  - assets/vectors/VECTOR-17_x4.svg
+  - assets/vectors/VECTOR-9_x4.svg
+  - assets/vectors/VECTOR-33_x4.svg
+  - assets/vectors/CONTAINER-1_x4.svg
+  - assets/vectors/VECTOR-58_x4.svg
+  - assets/vectors/VECTOR-30_x4.svg
+  - assets/vectors/VECTOR-47_x4.svg
+  - assets/vectors/VECTOR-50_x4.svg
+  - assets/vectors/ELLIPSE-23_x4.svg
+  - assets/vectors/VECTOR-58_x4.svg
+  - assets/vectors/VECTOR-61_x4.svg
+  - assets/vectors/GROUP-83_x4.svg
+  - assets/vectors/VECTOR-23_x4.svg
+  - assets/vectors/VECTOR-27_x4.svg
+  - assets/vectors/VECTOR-53_x4.svg
+  - assets/vectors/CONTAINER_x4.svg
+  - assets/vectors/VECTOR-40_x4.svg
+  - assets/vectors/VECTOR-11_x4.svg
+  - assets/vectors/LAYER-9_x4.svg
+  - assets/vectors/GROUP-1_x4.svg
+  - assets/vectors/VECTOR-38_x4.svg
+  - assets/vectors/LAYER-8_x4.svg
+  - assets/vectors/VECTOR-43_x4.svg
+  - assets/vectors/VECTOR-12_x4.svg
+  - assets/vectors/LAYER-81_x4.svg
+  - assets/vectors/LAYER-7_x4.svg
+  - assets/vectors/VECTOR-41_x4.svg
+  - assets/vectors/VECTOR-6_x4.svg
+  - assets/vectors/VECTOR-7_x4.svg
+  - assets/vectors/VECTOR-49_x4.svg
+  - assets/vectors/VECTOR-52_x4.svg
+  - assets/vectors/VECTOR-22_x4.svg
+  - assets/vectors/VECTOR-18_x4.svg
+  - assets/vectors/VECTOR-25_x4.svg
+  - assets/vectors/VECTOR-26_x4.svg
+  - assets/vectors/VECTOR-55_x4.svg
+  - assets/vectors/VECTOR-51_x4.svg
+  - assets/vectors/VECTOR-56_x4.svg
+  - assets/vectors/VECTOR-14_x4.svg
+  - assets/vectors/VECTOR-32_x4.svg
+  - assets/vectors/VECTOR-42_x4.svg
+  - assets/vectors/VECTOR-39_x4.svg
+  - assets/vectors/VECTOR-31_x4.svg
+  - assets/vectors/VECTOR-37_x4.svg
+  - assets/vectors/LAYER-6_x4.svg
+  - assets/vectors/VECTOR-35_x4.svg
+  - assets/vectors/VECTOR-21_x4.svg
+  - assets/vectors/VECTOR-22_x4.svg
+  - assets/vectors/VECTOR-20_x4.svg
+  - assets/vectors/VECTOR-19_x4.svg
+  - assets/vectors/LOGOSFACEBOOK_x4.svg
+  - assets/vectors/DEVICONGOOGLE_x4.svg
+  - assets/vectors/VECTOR-34_x4.svg
+  - assets/vectors/VECTOR-48_x4.svg
+  - assets/vectors/VECTOR-44_x4.svg
+
