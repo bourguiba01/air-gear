@@ -57,7 +57,7 @@ class _LoockingState extends State<Loocking> with SingleTickerProviderStateMixin
 			child: Stack(
 				children: [
 					Container(
-						padding: EdgeInsets.fromLTRB(0, 137, 1, 12),
+						padding: EdgeInsets.fromLTRB(0, 100, 1, 12),
 						child: Stack(
 							clipBehavior: Clip.none,
 							children: [

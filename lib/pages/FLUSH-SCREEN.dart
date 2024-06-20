@@ -2,7 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FlushScreen extends StatelessWidget {
+import 'CONXION.dart';
+
+void main() {
+	runApp(MaterialApp(
+		home: FlushScreen(),
+	));
+}
+
+class FlushScreen extends StatefulWidget {
+	@override
+	_FlushScreenState createState() => _FlushScreenState();
+}
+
+class _FlushScreenState extends State<FlushScreen> {
+	@override
+	void initState() {
+		super.initState();
+		Future.delayed(Duration(seconds: 3), () {
+			Navigator.pushReplacement(
+				context,
+				MaterialPageRoute(builder: (context) => Conxion()),
+			);
+		});
+	}
+
 	@override
 	Widget build(BuildContext context) {
 		final double screenHeight = MediaQuery.of(context).size.height;
@@ -36,7 +60,7 @@ class FlushScreen extends StatelessWidget {
 							width: 98,
 							height: 98,
 							child: SvgPicture.asset(
-								'assets/vectors/VECTOR-62_x4.svg', // Make sure this path is correct
+								'assets/vectors/VECTOR-62_x4.svg', // Assurez-vous que ce chemin est correct
 							),
 						),
 					),
@@ -44,10 +68,4 @@ class FlushScreen extends StatelessWidget {
 			),
 		);
 	}
-}
-
-void main() {
-	runApp(MaterialApp(
-		home: FlushScreen(),
-	));
 }

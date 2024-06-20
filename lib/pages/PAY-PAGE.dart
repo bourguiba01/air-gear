@@ -68,18 +68,12 @@ class PayPage extends StatelessWidget {
 																		margin: EdgeInsets.only(bottom: 16.4),
 																		child: ClipRRect(
 																			borderRadius: BorderRadius.circular(30),
-																			child: ImageFiltered(
-																				imageFilter: ImageFilter.blur(
-																					sigmaX: 10,
-																					sigmaY: 10,
-																				),
-																				child: SizedBox(
-																					width: 101.1,
-																					height: 48.8,
-																					child: SvgPicture.asset(
-																						'assets/vectors/VECTOR-57_x4.svg',
-																					),
-																				),
+
+																					child: Image.asset(
+																						'assets/vectors/img.png',
+																						fit: BoxFit.cover, // Ajustez ceci selon vos besoins (BoxFit.contain, BoxFit.fill, etc.)
+
+
 																			),
 																		),
 																	),
@@ -116,6 +110,7 @@ class PayPage extends StatelessWidget {
 																	),
 																],
 															),
+															/*
 															Positioned(
 																top: 17.4,
 																left: (288 - 194.4) / 2, // Center the image horizontally
@@ -134,6 +129,7 @@ class PayPage extends StatelessWidget {
 																	),
 																),
 															),
+															*/
 														],
 													),
 												),

@@ -37,32 +37,32 @@ class MyApp extends StatelessWidget {
 		return MaterialApp(
 			title: 'Flutter App',
 			home: Scaffold(
-
-				//body: BatteryFrame(),
+			//	body : EditProfile(),
+				//body: BatteryFrame(), // ok : frame 11
 				// body: BigOutlineDefault(),
 				// body: BigOutlineDefault1(),
 				// body: BigOutlineDefault2(),
-				// body: BigOutlineDefault3(),
+				 //body: BigOutlineDefault3(),
 				// body: BigOutlineDefault4(),
 				//body: BigOutlineSelect(),
 				//body: BottomBarButton (),
-				// body: Conxion(),
+				// body: Conxion(), // ok : signup
 				//body: EditProfile(),
-				//body: FlushScreen(),
-				// body: Frame8(),
+				body: FlushScreen(), // ok : full screen
+				// body: Frame8(), // supprimer
 				// body: Group23(),
 				// body: Group66(),
 				// body: Group70(),
 				//body: Group71(),
 				//body: Header(),
-				//body: Language (),
-				 //  body: Loocking(),
-				body: MainPageConacted(),
-				 //body: MainPageNotConnected  (),
-				//body: NoConxion(),
-				// body: PayPage(),
-				// body:  EditProfilePage(),
-				 //body: Setting(),
+				//body: Language (), // supprimer
+			//	   body: Loocking(), // ok : frame 10
+			//	body: MainPageConacted(),  	// ok : frame 12
+			//	body: MainPageNotConnected  (), // ok+footer : frame 9
+			//	body: NoConxion(), // ok : frame noconxion
+			//	 body: PayPage(), // ok : frame 18
+			//	 body:  EditProfilePage(), // frame 13 ******
+				// body: Setting(),// maybe
 
 			),
 		);

@@ -63,7 +63,7 @@ class BatteryFrame extends StatelessWidget {
 							'assets/vectors/VECTOR-51_x4.svg',
 							context,
 						),
-						SizedBox(height: 45.7),
+						SizedBox(height: 25),
 						_buildBatteryInfo(
 							'Battery',
 							'RF:000001',
@@ -71,7 +71,7 @@ class BatteryFrame extends StatelessWidget {
 							'assets/vectors/VECTOR-56_x4.svg',
 							context,
 						),
-						SizedBox(height: 45.7),
+						SizedBox(height: 25),
 						_buildBatteryInfo(
 							'Scouter',
 							'RF:000001',
@@ -93,7 +93,7 @@ class BatteryFrame extends StatelessWidget {
 				print('Battery box clicked');
 			},
 			child: Container(
-				width: 300,
+				width: MediaQuery.sizeOf(context).width*0.8,
 				padding: EdgeInsets.all(20),
 				decoration: BoxDecoration(
 					border: Border.all(color: Color(0xFFD6D6D6)),
@@ -134,13 +134,13 @@ class BatteryFrame extends StatelessWidget {
 								},
 								child: Column(
 									children: [
-										SvgPicture.asset(vector1, width: 50, height: 50),
-										SizedBox(height: 30),
+										SvgPicture.asset(vector1, width: 20, height: 20),
+										SizedBox(height: 20),
 										GestureDetector(
 											onTap: () {
 												print('Garbage can clicked');
 											},
-											child: SvgPicture.asset(vector2, width: 30, height: 50),
+											child: SvgPicture.asset(vector2, width: 20, height: 20),
 										),
 									],
 								),
