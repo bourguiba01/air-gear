@@ -1,8 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Conxion extends StatelessWidget {
+import 'MAIN-PAGE-CONACTED.dart';
+import 'signup.dart';
+
+class Conxion extends StatefulWidget {
+	@override
+	_ConxionState createState() => _ConxionState();
+}
+
+class _ConxionState extends State<Conxion> {
+	final _formKey = GlobalKey<FormState>();
+	final TextEditingController _emailController = TextEditingController();
+	final TextEditingController _passwordController = TextEditingController();
+
+	Future<void> _submitData() async {
+		if (_formKey.currentState!.validate()) {
+			final email = _emailController.text;
+			final password = _passwordController.text;
+
+			var url = Uri.parse('https://shopup.tn/airgear/api/login.php');
+			var response = await http.post(
+				url,
+				headers: <String, String>{
+					'Content-Type': 'application/json; charset=UTF-8',
+				},
+				body: jsonEncode(<String, String>{
+					'email': email,
+					'password': password,
+				}),
+			);
+				print(response.body) ;
+			if (response.statusCode == 200) {
+				var responseData = jsonDecode(response.body);
+				ScaffoldMessenger.of(context).showSnackBar(
+					SnackBar(content: Text('Login successful')),
+				);
+
+				// Store client data in shared preferences
+				SharedPreferences prefs = await SharedPreferences.getInstance();
+				await prefs.setString('id', responseData['id'].toString());
+				await prefs.setString('fullName', responseData['fullName'].toString());
+				await prefs.setString('email', responseData['email'].toString());
+				print('go to the main page ') ;
+				Navigator.of(context).pushReplacement(
+					MaterialPageRoute(builder: (context) => MainPageConacted()),
+				);
+
+
+				// Navigate to the next screen or perform other actions on successful login
+			} else {
+				ScaffoldMessenger.of(context).showSnackBar(
+					SnackBar(content: Text('Login failed: ${response.body}')),
+				);
+			}
+		}
+	}
+
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
@@ -21,32 +79,78 @@ class Conxion extends StatelessWidget {
 					),
 				),
 				child: SafeArea(
-					child: Column(
-						crossAxisAlignment: CrossAxisAlignment.stretch,
-						children: [
-							Expanded(
-								flex: 2,
-								child: Padding(
-									padding: const EdgeInsets.all(16),
-									child: Column(
-										mainAxisAlignment: MainAxisAlignment.center,
-										crossAxisAlignment: CrossAxisAlignment.stretch,
-										children: [
-											Text(
-												'Log In',
-												style: GoogleFonts.inter(
-													fontWeight: FontWeight.w700,
-													fontSize: 30,
-													color: Colors.white,
+					child: Form(
+						key: _formKey,
+						child: Column(
+							crossAxisAlignment: CrossAxisAlignment.stretch,
+							children: [
+								Expanded(
+									flex: 2,
+									child: Padding(
+										padding: const EdgeInsets.all(16),
+										child: Column(
+											mainAxisAlignment: MainAxisAlignment.center,
+											crossAxisAlignment: CrossAxisAlignment.stretch,
+											children: [
+												Text(
+													'Log In',
+													style: GoogleFonts.inter(
+														fontWeight: FontWeight.w700,
+														fontSize: 30,
+														color: Colors.white,
+													),
+													textAlign: TextAlign.center,
 												),
-												textAlign: TextAlign.center,
-											),
-											SizedBox(height: 20),
-											Padding(
-												padding: const EdgeInsets.symmetric(horizontal: 5),
-												child: TextField(
+												SizedBox(height: 20),
+												Padding(
+													padding: const EdgeInsets.symmetric(horizontal: 5),
+													child: TextFormField(
+														controller: _emailController,
+														decoration: InputDecoration(
+															hintText: 'Email or Phone Number',
+															hintStyle: TextStyle(
+																fontWeight: FontWeight.w400,
+																fontSize: 15,
+																color: Color(0xFF003D78),
+															),
+															filled: true,
+															fillColor: Colors.white,
+															contentPadding: EdgeInsets.all(15),
+															border: OutlineInputBorder(
+																borderRadius: BorderRadius.circular(10),
+																borderSide: BorderSide.none,
+															),
+														),
+														style: TextStyle(
+															fontWeight: FontWeight.w400,
+															fontSize: 15,
+															color: Colors.black,
+														),
+														validator: (value) {
+															if (value == null || value.isEmpty) {
+																return 'Please enter your email or phone number';
+															}
+															return null;
+														},
+														keyboardType: TextInputType.emailAddress, // Set email keyboard type
+													),
+												),
+											],
+										),
+									),
+								),
+								Expanded(
+									flex: 3,
+									child: Container(
+										padding: EdgeInsets.symmetric(horizontal: 16),
+										child: Column(
+											crossAxisAlignment: CrossAxisAlignment.stretch,
+											children: [
+												TextFormField(
+													controller: _passwordController,
+													obscureText: true,
 													decoration: InputDecoration(
-														hintText: 'Email or Phone Number',
+														hintText: 'Password',
 														hintStyle: TextStyle(
 															fontWeight: FontWeight.w400,
 															fontSize: 15,
@@ -65,160 +169,83 @@ class Conxion extends StatelessWidget {
 														fontSize: 15,
 														color: Colors.black,
 													),
+													validator: (value) {
+														if (value == null || value.isEmpty) {
+															return 'Please enter your password';
+														}
+														return null;
+													},
 												),
-											),
-										],
-									),
-								),
-							),
-							Expanded(
-								flex: 3,
-								child: Container(
-									padding: EdgeInsets.symmetric(horizontal: 16),
-									child: Column(
-										crossAxisAlignment: CrossAxisAlignment.stretch,
-										children: [
-											TextField(
-												obscureText: true,
-												decoration: InputDecoration(
-													hintText: 'Password',
-													hintStyle: TextStyle(
-														fontWeight: FontWeight.w400,
-														fontSize: 15,
-														color: Color(0xFF003D78),
-													),
-													filled: true,
-													fillColor: Colors.white,
-													contentPadding: EdgeInsets.all(15),
-													border: OutlineInputBorder(
-														borderRadius: BorderRadius.circular(10),
-														borderSide: BorderSide.none,
-													),
-												),
-												style: TextStyle(
-													fontWeight: FontWeight.w400,
-													fontSize: 15,
-													color: Colors.black,
-												),
-											),
-											SizedBox(height: 20),
-											GestureDetector(
-												onTap: () {
-													// Add your forget password logic here
-												},
-												child: Text(
-													'Forget Password?',
-													style: GoogleFonts.inter(
-														fontWeight: FontWeight.w700,
-														fontSize: 15,
-														color: Colors.white,
-													),
-													textAlign: TextAlign.center,
-												),
-											),
-											SizedBox(height: 20),
-											ElevatedButton(
-												onPressed: () {
-													// Add your sign in logic here
-												},
-												style: ElevatedButton.styleFrom(
-													backgroundColor: Color(0xFF003D78),
-													padding: EdgeInsets.symmetric(vertical: 15),
-													shape: RoundedRectangleBorder(
-														borderRadius: BorderRadius.circular(10),
-													),
-												),
-												child: Text(
-													'Sign in',
-													style: GoogleFonts.inter(
-														fontWeight: FontWeight.w700,
-														fontSize: 15,
-														color: Colors.white,
-													),
-												),
-											),
-											SizedBox(height: 20),
-											Row(
-												mainAxisAlignment: MainAxisAlignment.center,
-												children: [
-													Text(
-														'Don’t have an account? ',
+												SizedBox(height: 20),
+												GestureDetector(
+													onTap: () {
+														// Add your forget password logic here
+													},
+													child: Text(
+														'Forget Password?',
 														style: GoogleFonts.inter(
-															fontWeight: FontWeight.w400,
+															fontWeight: FontWeight.w700,
+															fontSize: 15,
+															color: Colors.white,
+														),
+														textAlign: TextAlign.center,
+													),
+												),
+												SizedBox(height: 20),
+												ElevatedButton(
+													onPressed: _submitData,
+													style: ElevatedButton.styleFrom(
+														backgroundColor: Color(0xFF003D78),
+														padding: EdgeInsets.symmetric(vertical: 15),
+														shape: RoundedRectangleBorder(
+															borderRadius: BorderRadius.circular(10),
+														),
+													),
+													child: Text(
+														'Sign in',
+														style: GoogleFonts.inter(
+															fontWeight: FontWeight.w700,
 															fontSize: 15,
 															color: Colors.white,
 														),
 													),
-													GestureDetector(
-														onTap: () {
-															// Add your sign up logic here
-														},
-														child: Text(
-															'Sign Up',
+												),
+												SizedBox(height: 20),
+												Row(
+													mainAxisAlignment: MainAxisAlignment.center,
+													children: [
+														Text(
+															'Don’t have an account? ',
 															style: GoogleFonts.inter(
-																fontWeight: FontWeight.w700,
+																fontWeight: FontWeight.w400,
 																fontSize: 15,
 																color: Colors.white,
 															),
 														),
-													),
-												],
-											),
-											SizedBox(height: 20),
-											Divider(color: Color(0xFF003D78)),
-											SizedBox(height: 20),
-											GestureDetector(
-												onTap: () {
-													// Add your logic for social sign-in here
-												},
-												child: Text(
-													'Or sign in with',
-													textAlign: TextAlign.center,
-													style: GoogleFonts.inter(
-														fontWeight: FontWeight.w400,
-														fontSize: 15,
-														color: Colors.white,
-													),
+														GestureDetector(
+															onTap: () {
+																Navigator.push(
+																	context,
+																	MaterialPageRoute(builder: (context) => SignUp()),
+																);
+															},
+															child: Text(
+																'Sign Up',
+																style: GoogleFonts.inter(
+																	fontWeight: FontWeight.w700,
+																	fontSize: 15,
+																	color: Colors.white,
+																),
+															),
+														),
+													],
 												),
-											),
-											SizedBox(height: 20),
-											Row(
-												mainAxisAlignment: MainAxisAlignment.center,
-												children: [
-													GestureDetector(
-														onTap: () {
-															// Add your logic for the first social sign-in here
-														},
-														child: _buildSocialIcon('assets/vectors/DEVICONGOOGLE_x4.svg'),
-													),
-													SizedBox(width: 20),
-													GestureDetector(
-														onTap: () {
-															// Add your logic for the second social sign-in here
-														},
-														child: _buildSocialIcon('assets/vectors/LOGOSFACEBOOK_x4.svg'),
-													),
-													SizedBox(width: 20),
-													GestureDetector(
-														onTap: () {
-															// Add your logic for the third social sign-in here
-														},
-														child: _buildSocialIcon('assets/vectors/VECTOR-20_x4.svg'),
-													),
-													SizedBox(width: 20),
-													GestureDetector(
-														onTap: () {
-															// Add your logic for the fourth social sign-in here
-														},
-														child: _buildSocialIcon('assets/vectors/VECTOR-19_x4.svg'),
-													),
-												],
-											),
-										],
+											],
+										),
 									),
 								),
-							),
-						],
+							],
+						),
 					),
 				),
 			),

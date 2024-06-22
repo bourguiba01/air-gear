@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'CONXION.dart';
+import 'MAIN-PAGE-CONACTED.dart';
 
 void main() {
 	runApp(MaterialApp(
@@ -19,12 +20,32 @@ class _FlushScreenState extends State<FlushScreen> {
 	@override
 	void initState() {
 		super.initState();
-		Future.delayed(Duration(seconds: 3), () {
+		checkLoggedIn(); // Appel de la fonction de vérification au chargement de l'écran
+	}
+
+	// Fonction pour vérifier si l'utilisateur est connecté
+	void checkLoggedIn() async {
+		SharedPreferences prefs = await SharedPreferences.getInstance();
+		String id = prefs.getString('id')!;
+		String fullName = prefs.getString('fullName')!;
+		String email = prefs.getString('email')!;
+
+		// Vérifier si les données spécifiques existent
+		if (id != null && fullName != null && email != null) {
+			// Rediriger vers la page MainPageConacted
 			Navigator.pushReplacement(
 				context,
-				MaterialPageRoute(builder: (context) => Conxion()),
+				MaterialPageRoute(builder: (context) => MainPageConacted()),
 			);
-		});
+		} else {
+			// Rediriger vers la page de connexion (Conxion)
+			Future.delayed(Duration(seconds: 3), () {
+				Navigator.pushReplacement(
+					context,
+					MaterialPageRoute(builder: (context) => Conxion()),
+				);
+			});
+		}
 	}
 
 	@override

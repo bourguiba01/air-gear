@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/maps.dart';
+
 Widget footer(BuildContext context) {
   return Container(
     padding: EdgeInsets.all(10),
@@ -14,7 +16,17 @@ Widget footer(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Icon(Icons.home_outlined),
-        Icon(Icons.map_outlined),
+        InkWell(
+          onTap: (){
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => MapScreen()),
+            );
+
+          },
+          child:        Icon(Icons.map_outlined),
+
+        ),
+
         Icon(Icons.document_scanner_outlined),
         Icon(Icons.tag),
         Icon(Icons.face),
